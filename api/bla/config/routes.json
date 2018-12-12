@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/blas",
+      "handler": "Bla.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/blas/count",
+      "handler": "Bla.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/blas/:_id",
+      "handler": "Bla.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/blas",
+      "handler": "Bla.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/blas/:_id",
+      "handler": "Bla.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/blas/:_id",
+      "handler": "Bla.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
