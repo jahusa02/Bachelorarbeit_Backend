@@ -5,16 +5,16 @@
       "connector": "strapi-hook-mongoose",
       "settings": {
         "client": "mongo",
-        "host": "127.0.0.1",
+        "host": "cluster0-shard-00-02-5ibeo.mongodb.net:27017",
         "srv": false,
         "port": 27017,
         "database": "ba-test",
-        "username": "",
-        "password": ""
+        "username": "jahusa02",
+        "password": "Bskknr4rAdia3"
       },
       "options": {
-        "authenticationDatabase": "",
-        "ssl": false
+        "authenticationDatabase": "admin",
+        "ssl": true
       }
     }
   }
