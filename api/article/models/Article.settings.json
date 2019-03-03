@@ -30,6 +30,10 @@
     "slug": {
       "default": "",
       "type": "string"
+    },
+    "category": {
+      "default": "",
+      "type": "string"
     }
   }
 }

@@ -1,13 +1,13 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import { findIndex, get, isArray, isEmpty, includes, isNumber, isString, map } from 'lodash';
 import {
   all,
   call,
-  cancel,
+  // cancel,
   fork,
   put,
   select,
-  take,
+  // take,
   takeLatest,
 } from 'redux-saga/effects';
 import { makeSelectSchema } from 'containers/App/selectors';
@@ -77,15 +77,10 @@ export function* submit() {
   let shouldAddTranslationSuffix = false;
   
   // Remove the updated_at & created_at fields so it is updated correctly when using Postgres or MySQL db
-  if (record.updated_at) {
-    delete record.created_at;
-    delete record.updated_at;
-  }
-
-  // Remove the updatedAt & createdAt fields so it is updated correctly when using MongoDB
-  if (record.updatedAt) {
-    delete record.createdAt;
-    delete record.updatedAt;
+  const timestamps = get(schema, ['models', currentModelName, 'options', 'timestamps'], null);
+  if (timestamps) {
+    delete record[timestamps[0]];
+    delete record[timestamps[1]];
   }
 
   try {
@@ -93,8 +88,18 @@ export function* submit() {
     yield put(setLoader());
     const recordCleaned = Object.keys(record).reduce((acc, current) => {
       const attrType = source !== 'content-manager' ? get(schema, ['models', 'plugins', source, currentModelName, 'fields', current, 'type'], null) : get(schema, ['models', currentModelName, 'fields', current, 'type'], null);
-      const cleanedData = attrType === 'json' ? record[current] : cleanData(record[current], 'value', 'id');
+      let cleanedData;
 
+      switch (attrType) {
+        case 'json':
+          cleanedData = record[current];
+          break;
+        case 'date':
+          cleanedData = record[current]._isAMomentObject === true ? record[current].format('YYYY-MM-DD HH:mm:ss') : record[current];
+          break;
+        default:
+          cleanedData = cleanData(record[current], 'value', 'id');
+      }
 
       if (isString(cleanedData) || isNumber(cleanedData)) {
         acc.append(current, cleanedData);
@@ -180,13 +185,15 @@ export function* submit() {
 }
 
 function* defaultSaga() {
-  const loadDataWatcher = yield fork(takeLatest, GET_DATA, dataGet);
+  yield fork(takeLatest, GET_DATA, dataGet);
+  // TODO fix router (Other PR)
+  // const loadDataWatcher = yield fork(takeLatest, GET_DATA, dataGet);
   yield fork(takeLatest, DELETE_DATA, deleteData);
   yield fork(takeLatest, SUBMIT, submit);
 
-  yield take(LOCATION_CHANGE);
+  // yield take(LOCATION_CHANGE);
 
-  yield cancel(loadDataWatcher);
+  // yield cancel(loadDataWatcher);
 }
 
 export default defaultSaga;
