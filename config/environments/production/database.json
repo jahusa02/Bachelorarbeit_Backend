@@ -9,8 +9,8 @@
         "host": "cluster0-shard-00-02-5ibeo.mongodb.net:27017",
         "port": "27017",
         "database": "ba-test",
-        "username": "jahusa02",
-        "password": "Bskknr4rAdia3"
+        "username": "Bachelorarbeit",
+        "password": "TUKIw4YbeXtRwvZf"
       },
       "options": {
         "ssl": true,
