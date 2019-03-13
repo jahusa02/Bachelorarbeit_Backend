@@ -20,7 +20,7 @@ $ npm install
 $ npm run postinstall
 
 # Startet das Backend im "Production Mode" auf Port 1337
-$ npm run build
+$ npm run prod
 
 ```
 
