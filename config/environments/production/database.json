@@ -6,7 +6,7 @@
       "settings": {
         "client": "mongo",
         "uri": "",
-        "host": "cluster0-shard-00-02-5ibeo.mongodb.net:27017",
+        "host": "cluster0-shard-00-00-5ibeo.mongodb.net:27017",
         "port": "27017",
         "database": "ba-test",
         "username": "Bachelorarbeit",
